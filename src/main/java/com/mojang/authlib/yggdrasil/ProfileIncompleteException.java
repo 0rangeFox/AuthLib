@@ -1,9 +1,9 @@
 package com.mojang.authlib.yggdrasil;
 
-public class ProfileIncompleteException
-        extends RuntimeException {
-    public ProfileIncompleteException() {
-    }
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor
+public class ProfileIncompleteException extends RuntimeException {
 
     public ProfileIncompleteException(String message) {
         super(message);
@@ -16,4 +16,5 @@ public class ProfileIncompleteException
     public ProfileIncompleteException(Throwable cause) {
         super(cause);
     }
+
 }

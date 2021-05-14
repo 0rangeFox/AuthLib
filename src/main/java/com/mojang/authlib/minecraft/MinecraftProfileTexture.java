@@ -1,27 +1,20 @@
 package com.mojang.authlib.minecraft;
 
-import java.util.Map;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
+import java.util.Map;
+
+@RequiredArgsConstructor
 public class MinecraftProfileTexture {
-    private final String url;
+
+    @Getter private final String url;
     private final Map<String, String> metadata;
 
-    public MinecraftProfileTexture(String url, Map<String, String> metadata) {
-        this.url = url;
-        this.metadata = metadata;
-    }
-
-    public String getUrl() {
-        return this.url;
-    }
-
     public String getMetadata(String key) {
-        if (this.metadata == null) {
-            return null;
-        }
-        return this.metadata.get(key);
+        return this.metadata == null ? null : this.metadata.get(key);
     }
 
     public String getHash() {
@@ -34,7 +27,7 @@ public class MinecraftProfileTexture {
 
     public enum Type {
         SKIN,
-                CAPE;
+        CAPE
     }
 
 }

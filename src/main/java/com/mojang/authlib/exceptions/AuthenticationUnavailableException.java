@@ -1,11 +1,9 @@
 package com.mojang.authlib.exceptions;
 
-import com.mojang.authlib.exceptions.AuthenticationException;
+import lombok.NoArgsConstructor;
 
-public class AuthenticationUnavailableException
-        extends AuthenticationException {
-    public AuthenticationUnavailableException() {
-    }
+@NoArgsConstructor
+public class AuthenticationUnavailableException extends AuthenticationException {
 
     public AuthenticationUnavailableException(String message) {
         super(message);
@@ -18,4 +16,5 @@ public class AuthenticationUnavailableException
     public AuthenticationUnavailableException(Throwable cause) {
         super(cause);
     }
+
 }

@@ -1,11 +1,16 @@
 package com.mojang.authlib;
 
 import com.mojang.authlib.properties.PropertyMap;
-import java.util.UUID;
+import lombok.Getter;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
+import java.util.Objects;
+import java.util.UUID;
+
+@Getter
 public class GameProfile {
+
     private final UUID id;
     private final String name;
     private final PropertyMap properties = new PropertyMap();
@@ -15,38 +20,30 @@ public class GameProfile {
         if (id == null && StringUtils.isBlank(name)) {
             throw new IllegalArgumentException("Name and ID cannot both be blank");
         }
+
         this.id = id;
         this.name = name;
     }
 
-    public UUID getId() {
-        return this.id;
-    }
-
-    public String getName() {
-        return this.name;
-    }
-
-    public PropertyMap getProperties() {
-        return this.properties;
-    }
 
     public boolean isComplete() {
         return this.id != null && StringUtils.isNotBlank(this.getName());
     }
 
-    public boolean equals(Object o) {
-        if (this == o) {
+    public boolean equals(Object obj) {
+        if (this == obj) {
             return true;
         }
-        if (o == null || this.getClass() != o.getClass()) {
+
+        if (obj == null || this.getClass() != obj.getClass()) {
             return false;
         }
-        GameProfile that = (GameProfile)o;
-        if (this.id != null ? !this.id.equals(that.id) : that.id != null) {
+
+        GameProfile that = (GameProfile) obj;
+        if (!Objects.equals(this.id, that.id)) {
             return false;
         }
-        return !(this.name != null ? !this.name.equals(that.name) : that.name != null);
+        return Objects.equals(this.name, that.name);
     }
 
     public int hashCode() {
@@ -56,10 +53,7 @@ public class GameProfile {
     }
 
     public String toString() {
-        return new ToStringBuilder(this).append("id", this.id).append("name", this.name).append("properties", (Object)this.properties).append("legacy", this.legacy).toString();
+        return new ToStringBuilder(this).append("id", this.id).append("name", this.name).append("properties", this.properties).append("legacy", this.legacy).toString();
     }
 
-    public boolean isLegacy() {
-        return this.legacy;
-    }
 }

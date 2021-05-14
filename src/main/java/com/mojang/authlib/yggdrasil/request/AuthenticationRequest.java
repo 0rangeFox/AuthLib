@@ -4,11 +4,12 @@ import com.mojang.authlib.Agent;
 import com.mojang.authlib.yggdrasil.YggdrasilUserAuthentication;
 
 public class AuthenticationRequest {
-    private Agent agent;
-    private String username;
-    private String password;
-    private String clientToken;
-    private boolean requestUser = true;
+
+    private final Agent agent;
+    private final String username;
+    private final String password;
+    private final String clientToken;
+    private final boolean requestUser = true;
 
     public AuthenticationRequest(YggdrasilUserAuthentication authenticationService, String username, String password) {
         this.agent = authenticationService.getAgent();
@@ -16,4 +17,5 @@ public class AuthenticationRequest {
         this.clientToken = authenticationService.getAuthenticationService().getClientToken();
         this.password = password;
     }
+
 }

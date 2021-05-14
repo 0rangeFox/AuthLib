@@ -4,23 +4,22 @@ import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.HttpAuthenticationService;
 import com.mojang.authlib.exceptions.AuthenticationException;
 import com.mojang.authlib.exceptions.AuthenticationUnavailableException;
-import com.mojang.authlib.legacy.LegacyAuthenticationService;
 import com.mojang.authlib.minecraft.HttpMinecraftSessionService;
 import com.mojang.authlib.minecraft.MinecraftProfileTexture;
-import com.mojang.authlib.minecraft.MinecraftProfileTexture.Type;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
-public class LegacyMinecraftSessionService
-        extends HttpMinecraftSessionService {
+public class LegacyMinecraftSessionService extends HttpMinecraftSessionService {
+
     private static final String BASE_URL = "http://session.minecraft.net/game/";
-    private static final URL JOIN_URL = HttpAuthenticationService.constantURL((String)"http://session.minecraft.net/game/joinserver.jsp");
-    private static final URL CHECK_URL = HttpAuthenticationService.constantURL((String)"http://session.minecraft.net/game/checkserver.jsp");
+    private static final URL JOIN_URL = HttpAuthenticationService.constantURL(BASE_URL + "joinserver.jsp");
+    private static final URL CHECK_URL = HttpAuthenticationService.constantURL(BASE_URL + "checkserver.jsp");
 
     protected LegacyMinecraftSessionService(LegacyAuthenticationService authenticationService) {
-        super((HttpAuthenticationService)((Object)authenticationService));
+        super(authenticationService);
     }
 
     public void joinServer(GameProfile profile, String authenticationToken, String serverId) throws AuthenticationException {
@@ -28,15 +27,16 @@ public class LegacyMinecraftSessionService
         arguments.put("user", profile.getName());
         arguments.put("sessionId", authenticationToken);
         arguments.put("serverId", serverId);
-        URL url = HttpAuthenticationService.concatenateURL((URL)JOIN_URL, (String)HttpAuthenticationService.buildQuery(arguments));
+
+        URL url = HttpAuthenticationService.concatenateURL(JOIN_URL, HttpAuthenticationService.buildQuery(arguments));
         try {
             String response = this.getAuthenticationService().performGetRequest(url);
+
             if (!response.equals("OK")) {
                 throw new AuthenticationException(response);
             }
-        }
-        catch (IOException e) {
-            throw new AuthenticationUnavailableException((Throwable)e);
+        } catch (IOException e) {
+            throw new AuthenticationUnavailableException(e);
         }
     }
 
@@ -44,13 +44,13 @@ public class LegacyMinecraftSessionService
         HashMap<String, Object> arguments = new HashMap<String, Object>();
         arguments.put("user", user.getName());
         arguments.put("serverId", serverId);
-        URL url = HttpAuthenticationService.concatenateURL((URL)CHECK_URL, (String)HttpAuthenticationService.buildQuery(arguments));
+
+        URL url = HttpAuthenticationService.concatenateURL(CHECK_URL, HttpAuthenticationService.buildQuery(arguments));
         try {
             String response = this.getAuthenticationService().performGetRequest(url);
             return response.equals("YES") ? user : null;
-        }
-        catch (IOException e) {
-            throw new AuthenticationUnavailableException((Throwable)e);
+        } catch (IOException e) {
+            throw new AuthenticationUnavailableException(e);
         }
     }
 
@@ -63,6 +63,7 @@ public class LegacyMinecraftSessionService
     }
 
     public LegacyAuthenticationService getAuthenticationService() {
-        return (LegacyAuthenticationService)((Object)super.getAuthenticationService());
+        return (LegacyAuthenticationService) super.getAuthenticationService();
     }
+
 }

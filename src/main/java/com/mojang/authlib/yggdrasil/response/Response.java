@@ -1,21 +1,13 @@
 package com.mojang.authlib.yggdrasil.response;
 
+import lombok.Getter;
+
+@Getter
 public class Response {
+
     private String error;
     private String errorMessage;
     private String cause;
-
-    public String getError() {
-        return this.error;
-    }
-
-    public String getCause() {
-        return this.cause;
-    }
-
-    public String getErrorMessage() {
-        return this.errorMessage;
-    }
 
     protected void setError(String error) {
         this.error = error;
@@ -28,4 +20,5 @@ public class Response {
     protected void setCause(String cause) {
         this.cause = cause;
     }
+
 }

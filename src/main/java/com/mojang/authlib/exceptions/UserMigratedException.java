@@ -1,11 +1,9 @@
 package com.mojang.authlib.exceptions;
 
-import com.mojang.authlib.exceptions.InvalidCredentialsException;
+import lombok.NoArgsConstructor;
 
-public class UserMigratedException
-        extends InvalidCredentialsException {
-    public UserMigratedException() {
-    }
+@NoArgsConstructor
+public class UserMigratedException extends InvalidCredentialsException {
 
     public UserMigratedException(String message) {
         super(message);
@@ -18,4 +16,5 @@ public class UserMigratedException
     public UserMigratedException(Throwable cause) {
         super(cause);
     }
+
 }

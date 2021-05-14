@@ -1,9 +1,9 @@
 package com.mojang.authlib.yggdrasil;
 
-public class ProfileNotFoundException
-        extends RuntimeException {
-    public ProfileNotFoundException() {
-    }
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor
+public class ProfileNotFoundException extends RuntimeException {
 
     public ProfileNotFoundException(String message) {
         super(message);
@@ -16,4 +16,5 @@ public class ProfileNotFoundException
     public ProfileNotFoundException(Throwable cause) {
         super(cause);
     }
+
 }

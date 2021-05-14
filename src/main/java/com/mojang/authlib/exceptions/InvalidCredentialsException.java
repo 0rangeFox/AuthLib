@@ -1,11 +1,9 @@
 package com.mojang.authlib.exceptions;
 
-import com.mojang.authlib.exceptions.AuthenticationException;
+import lombok.NoArgsConstructor;
 
-public class InvalidCredentialsException
-        extends AuthenticationException {
-    public InvalidCredentialsException() {
-    }
+@NoArgsConstructor
+public class InvalidCredentialsException extends AuthenticationException {
 
     public InvalidCredentialsException(String message) {
         super(message);
@@ -18,4 +16,5 @@ public class InvalidCredentialsException
     public InvalidCredentialsException(Throwable cause) {
         super(cause);
     }
+
 }
